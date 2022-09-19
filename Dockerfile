@@ -77,8 +77,12 @@ RUN --security=insecure sh -c '/entry-point.sh guix pull && guix package --fallb
 RUN sh -c '/entry-point.sh guix gc && guix gc --optimize'
 	# && [ -e /root/.guix-profile/etc/ssl/certs/ca-certificates.crt ] \
 
-RUN [ "$(cat /root/.config/guix/channels.scm | grep commit | cut -d'"' -f 2)" = "`guix --version | head -n 1 | awk '{print $NF}'`" ]
+# RUN [ "$(cat /root/.config/guix/channels.scm | grep commit | cut -d'"' -f 2)" = "`guix --version | head -n 1 | awk '{print $NF}'`" ]
 # && echo True || echo False
+
+RUN cat /root/.config/guix/channels.scm
+
+RUN guix --version
 
 ENTRYPOINT ["/entry-point.sh"]
 CMD ["sh"]
